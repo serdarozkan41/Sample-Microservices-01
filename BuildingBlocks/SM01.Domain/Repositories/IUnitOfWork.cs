@@ -8,9 +8,9 @@ namespace SM01.Domain.Repositories
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 
-        IDisposable BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+        IDisposable BeginTransaction();
 
-        Task<IDisposable> BeginTransactionAsync(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted, CancellationToken cancellationToken = default);
+        Task<IDisposable> BeginTransactionAsync(CancellationToken cancellationToken = default);
 
         void CommitTransaction();
 

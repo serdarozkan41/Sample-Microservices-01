@@ -15,27 +15,27 @@ namespace SM01.Application.Common.Services
             _repository = repository;
         }
 
-        public Task<List<T>> GetAsync()
+        public Task<List<T>> GetAsync(CancellationToken cancellationToken = default)
         {
-            return _repository.ToListAsync(_repository.GetAll());
+            return _repository.ToListAsync(_repository.GetAll(), cancellationToken);
         }
 
-        public Task<T> GetByIdAsync(Guid Id)
+        public Task<T> GetByIdAsync(Guid Id, CancellationToken cancellationToken = default)
         {
             ValidationException.Requires(Id != Guid.Empty, "Invalid Id");
-            return _repository.FirstOrDefaultAsync(_repository.GetAll().Where(x => x.Id == Id));
+            return _repository.FirstOrDefaultAsync(_repository.GetAll().Where(x => x.Id == Id), cancellationToken);
         }
 
-        public async Task AddOrUpdateAsync(T entity)
+        public async Task AddOrUpdateAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await _repository.AddOrUpdateAsync(entity);
-            await _unitOfWork.SaveChangesAsync();
+            await _repository.AddOrUpdateAsync(entity, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(T entity)
+        public async Task DeleteAsync(T entity, CancellationToken cancellationToken = default)
         {
             _repository.Delete(entity);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }
 }

@@ -12,11 +12,11 @@ namespace SM01.Domain.Repositories
 
         void Delete(TEntity entity);
 
-        Task<T> FirstOrDefaultAsync<T>(IQueryable<T> query);
+        Task<T> FirstOrDefaultAsync<T>(IQueryable<T> query, CancellationToken cancellationToken = default);
 
-        Task<T> SingleOrDefaultAsync<T>(IQueryable<T> query);
+        Task<T> SingleOrDefaultAsync<T>(IQueryable<T> query, CancellationToken cancellationToken = default);
 
-        Task<List<T>> ToListAsync<T>(IQueryable<T> query);
+        Task<List<T>> ToListAsync<T>(IQueryable<T> query, CancellationToken cancellationToken = default);
 
     }
 }
